@@ -20,8 +20,9 @@ const name = document.querySelector('input[id=name]'),
 	form = document.querySelector('.form__elements'),
 	table = document.querySelector('.table__elements');
 
-let workerArr = [],
-	genderCheck = '',
+let workerArr = JSON.parse(localStorage.getItem('workers')) || [];
+	
+let genderCheck = '',
 	employmentCheck = '',
 	positionCheck = '',
 	postjobCheck = '';
@@ -150,6 +151,9 @@ const checkInputs = function() {
 
 		createWorker();
 		renderWorker();
+
+		localStorage.setItem('workers', JSON.stringify(workerArr));
+
 		reset();
 
 		console.log(workerArr)
@@ -192,6 +196,8 @@ const renderWorker = function() {
 			item.removeWorker(item);
 
 			renderWorker();
+
+			localStorage.setItem('workers', JSON.stringify(workerArr));
 		});
 	});
 }
