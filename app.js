@@ -101,7 +101,7 @@ const appData = {
 
 				this.addWorker(trainee);
 				console.log(trainee)
-				// trainee.stack = stackTrainee.join(',');
+				trainee.stack = stackTrainee.join(',');
 
 				break;
 

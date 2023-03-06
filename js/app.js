@@ -20,12 +20,23 @@ const name = document.querySelector('input[id=name]'),
 	form = document.querySelector('.form__elements'),
 	table = document.querySelector('.table__elements');
 
-let tableBtn = document.querySelectorAll('.table__button');
-
 let workerArr = [],
 	genderCheck = '',
+	employmentCheck = '',
 	positionCheck = '',
 	postjobCheck = '';
+
+const getEmployment = function() {
+	for (let i = 0; i < employment.length; i++) {
+		employment[i].addEventListener('change', () => {
+			if (employment[i].type == "radio" && employment[i].checked) {
+	            employmentCheck = employment[i].value;
+	        }
+		});
+    }
+}
+getEmployment();
+
 
 const getGender = function() {
 	for (let i = 0; i < gender.length; i++) {
@@ -36,7 +47,6 @@ const getGender = function() {
 		});
     }
 }
-
 getGender();
 
 const getPosition = function() {
@@ -59,7 +69,6 @@ const getPosition = function() {
 		}
 	});
 }
-
 getPosition();
 
 const getPostjob = function() {
@@ -90,14 +99,13 @@ const getPostjob = function() {
 		}
 	});
 }
-
 getPostjob();
 
 const createWorker = function() {
 	switch(true) {
 		case postJob.value == 'tra':
 			const trainee = new Trainee(name.value, surname.value, age.value, genderCheck, postjobCheck, positionCheck);
-			
+
 			trainee.addWorker(trainee);
 		break;
 
@@ -149,13 +157,14 @@ const checkInputs = function() {
 }
 
 const renderWorker = function() {
-	let tableBtn = document.querySelectorAll('.table__button');
-
 	table.innerHTML = '';
 
 	workerArr.forEach((item) => {
-		table.insertAdjacentHTML('beforeend', `
-		<tr class="table__items">
+		const tr = document.createElement('tr');
+
+		tr.classList.add('table__items');
+
+		tr.insertAdjacentHTML('beforeend', `
 			<td class="table__item">${item.name}</td>
 
 			<td class="table__item">${item.surname}</td>
@@ -173,8 +182,17 @@ const renderWorker = function() {
 			<td class="table__item">
 				<button type="button" class="table__button">Удалить</button>
 			</td>
-		</tr>
 		`);
+
+		table.append(tr);
+
+		const removeBtn = tr.querySelector('.table__button');
+
+		removeBtn.addEventListener('click', () => {
+			item.removeWorker(item);
+
+			renderWorker();
+		});
 	});
 }
 
@@ -197,3 +215,5 @@ form.addEventListener('submit', (event) => {
 
 	checkInputs();
 });
+
+renderWorker();
