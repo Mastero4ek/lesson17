@@ -1,0 +1,294 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 0.69444444444444vw;
+  font-family: 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  color: #000000;
+  text-rendering: auto;
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: auto;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(120, 120, 120, .5);
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+input,
+textarea {
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+button,
+input,
+a,
+textarea {
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  font-size: inherit;
+}
+
+button {
+  border: none;
+  color: inherit;
+  font:inherit;
+  text-align: inherit;
+  padding: 0;
+  background-color: inherit;
+  text-rendering: auto;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 5rem;
+  min-height: 100vh;
+}
+
+.form__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form__title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.form__elements {
+  width: 45rem;
+  padding: 1rem 0 0;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: .5rem;
+  background-color: rgba(120, 120, 120, .3);
+}
+
+.form__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+  border-bottom: .1rem solid #000000;
+}
+
+.form__label-error {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 18%;
+  color: red;
+}
+
+.form__label-title {
+  font-size: 1.5rem;
+}
+
+.form__input {
+  font-size: 1.2rem;
+  width: 25rem;
+  height: 2.2rem;
+  padding: .5rem 1.5rem;
+  border-radius: .4rem;
+}
+
+.form__input:focus {
+  outline: .1rem solid #000000;
+}
+
+.form__select {
+  font-size: 1.2rem;
+  width: 25rem;
+  padding: .5rem 1.5rem;
+  border-radius: .4rem;
+  border: none;
+  background-color: #FFFFFF;
+}
+
+.form__checkbox {
+  width: 2rem;
+  height: 2rem;
+}
+
+.form__label > span {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+}
+
+.form__label > span:nth-of-type(1) {
+  margin-bottom: 1rem;
+}
+
+.form__radio {
+  width: 2rem;
+  height: 2rem;
+  margin-left: 2rem;
+}
+
+.item-radio > .form__label {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.form__button {
+  padding: .8rem 5rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: .7rem;
+  border: .1rem solid #000000;
+  background-color: #FFFFFF;
+  transition: all .3s;
+}
+
+.form__button:hover {
+  background-color: rgba(120, 120, 120, .3);
+}
+
+.table__wrapper-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.table__head {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  align-items: center;
+  padding: 1rem 0;
+  border-radius: .5rem .5rem 0 0;
+  background-color: rgba(120, 120, 120, .3);
+}
+
+.table__title {
+  font-style: italic;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.table__title > img {
+  width: 2rem;
+  height: auto;
+}
+
+.table__elements,
+.table__item {
+  border: .1rem solid #000;
+  border-collapse: collapse;
+}
+
+.table__elements {
+  width: 100%;
+}
+
+.table__item {
+  font-size: 1.3rem;
+  width: 10.5rem;
+  max-width: 10.5rem;
+  padding: .5rem;
+  text-align: center;
+  vertical-align: center;
+  background-color: #FFFFFF;
+}
+
+.table__button {
+  padding: .5rem 2rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  border-radius: .5rem;
+  border: .1rem solid #000000;
+  background-color: rgba(120, 120, 120, .3);
+  transition: all .3s;
+}
+
+.table__button:hover {
+  background-color: rgba(120, 120, 120, .5);
+}

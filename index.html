@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="css/style.css">
+	
+	<script defer src="js/Person.js"></script>
+	<script defer src="js/Worker.js"></script>
+	<script defer src="js/Trainee.js"></script>
+	<script defer src="js/Junior.js"></script>
+	<script defer src="js/Middle.js"></script>
+	<script defer src="js/Senior.js"></script>
+	<script defer src="js/app.js"></script>
+	<!-- <script defer src="Classes.js"></script>
+	<script defer src="app.js"></script> -->
+
+	<title>Document</title>
+</head>
+<body>
+	<main class="main">
+		<section class="form">
+			<div class="form__wrapper">
+				<h2 class="form__title">Новый сотрудник</h2>
+
+				<form action="#" method="POST" class="form__elements">
+					<div class="form__item">
+						<span class="form__label-title">Имя*</span>
+						<label for="name" class="form__label">
+							<input type="text" id="name" name="name" class="form__input" placeholder="Иван">
+						</label>
+						<span class="form__label-error">Обязательно к заполнению</span>
+					</div>
+
+					<div class="form__item">
+						<span class="form__label-title">Фамилия*</span>
+						<label for="surname" class="form__label">
+							<input type="text" id="surname" name="surname" class="form__input" placeholder="Иванов">
+						</label>
+						<span class="form__label-error">Обязательно к заполнению</span>
+					</div>
+						
+					<div class="form__item">
+						<span class="form__label-title">Возраст*</span>
+						<label for="age" class="form__label">
+							<input type="text" id="age" name="age" class="form__input" placeholder="35">
+						</label>
+						<span class="form__label-error">Обязательно к заполнению</span>
+					</div>
+
+					<div class="form__item item-radio">
+						<span class="form__label-title">Пол*</span>
+						<label for="gender" class="form__label">
+							<span>Мужчина
+								<input value="male" id="male" type="radio" name="gender" class="form__radio">
+							</span>
+
+							<span>Женщина
+								<input value="female" id="female" type="radio" name="gender" class="form__radio">
+							</span>
+						</label>
+					</div>
+
+					<div class="form__item">
+						<span class="form__label-title">Позиция*</span>
+						<label for="position" class="form__label">
+							<select class="form__select" name="position" id="position">
+								<option value="" selected disabled>Выберите позицию сотрудника</option>
+								<option value="fe">Front-end</option>
+								<option value="be">Back-end</option>
+								<option value="fs">Full-stack</option>
+							</select>
+						</label>
+					</div>
+						
+					<div class="form__item">
+						<span class="form__label-title">Уровень*</span>
+						<label for="postjob" class="form__label">
+							<select class="form__select" name="postjob" id="postjob">
+								<option value="" selected disabled>Выберите уровень сотрудника</option>
+								<option value="tra">Trainee</option>
+								<option value="jun">Junior</option>
+								<option value="mid">Middle</option>
+								<option value="sen">Senior</option>
+							</select>
+						</label>
+					</div>
+
+					<div class="form__item item-radio">
+						<span class="form__label-title">Занятось*</span>
+						<label for="employment" class="form__label">
+							<span>Полный рабочий день
+								<input value="fulltime" id="ft" type="radio" name="employment" class="form__radio">
+							</span>
+
+							<span>Частичная занятость
+								<input value="parttime" id="pt" type="radio" name="employment" class="form__radio">
+							</span>
+						</label>
+					</div>
+
+					<button type="submit" class="form__button">сохранить</button>
+				</form>
+			</div>
+		</section>
+
+		<section class="table">
+			<div class="table__wrapper">
+				<h2 class="table__wrapper-title">Список сотрудников</h2>
+
+				<div class="table__head">
+					<div class="table__title">Имя</div>
+
+					<div class="table__title">Фамилия</div>
+
+					<div class="table__title">Возраст</div>
+
+					<div class="table__title">Пол</div>
+
+					<div class="table__title">Позиция</div>
+
+					<div class="table__title">Уровень</div>
+
+					<div class="table__title">Зарплата</div>
+
+					<div class="table__title">
+						<img src="img/delete.svg" alt="del">
+					</div>
+				</div>
+				
+				<table class="table__elements">
+					<tr class="table__items">
+						<td class="table__item">Имя</td>
+
+						<td class="table__item">Фамилия</td>
+
+						<td class="table__item">Возраст</td>
+
+						<td class="table__item">Пол</td>
+
+						<td class="table__item">Позиция</td>
+
+						<td class="table__item">Уровень</td>
+
+						<td class="table__item">Зарплата</td>
+
+						<td class="table__item">
+							<button type="button" class="table__button">Удалить</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</section>
+	</main>
+</body>
+</html>
