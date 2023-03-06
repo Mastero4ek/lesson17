@@ -1,9 +1,17 @@
 'use strict'
 
 class Senior extends Worker {
-	constructor(name, surname, age, gender, postJob, position, salary = 0) {
+	constructor(name, surname, age, gender, postJob, position, salary) {
 		super(name, surname, age, gender, postJob, position);
 
-		this.salary = 150000;
+		this._salary = 150000;
+	}
+
+	set salary(num) {
+		this._salary = num;
+	}
+
+	get salary() {
+		return this._salary;
 	}
 }

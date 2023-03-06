@@ -102,16 +102,24 @@ const getPostjob = function() {
 }
 getPostjob();
 
+const getSalary = function(worker) {
+	return worker.salary = worker.salary - (worker.salary * (+employmentCheck / 100))
+}
+
 const createWorker = function() {
 	switch(true) {
 		case postJob.value == 'tra':
 			const trainee = new Trainee(name.value, surname.value, age.value, genderCheck, postjobCheck, positionCheck);
 
+			employmentCheck == '30' ? getSalary(trainee) : trainee.salary = trainee.salary;
+			
 			trainee.addWorker(trainee);
 		break;
 
 		case postJob.value == 'jun':
 			const junior = new Junior(name.value, surname.value, age.value,  genderCheck, postjobCheck, positionCheck);
+
+			employmentCheck == '30' ? getSalary(junior) : junior.salary = junior.salary;
 
 			junior.addWorker(junior);
 		break;
@@ -119,11 +127,15 @@ const createWorker = function() {
 		case postJob.value == 'mid':
 			const middle = new Middle(name.value, surname.value, age.value,  genderCheck, postjobCheck, positionCheck);
 
+			employmentCheck == '30' ? getSalary(middle) : middle.salary = middle.salary;
+
 			middle.addWorker(middle);
 		break;
 
 		case postJob.value == 'sen':
 			const senior = new Senior(name.value, surname.value, age.value,  genderCheck, postjobCheck, positionCheck);
+
+			employmentCheck == '30' ? getSalary(senior) : senior.salary = senior.salary;
 
 			senior.addWorker(senior);
 		break;
@@ -223,3 +235,4 @@ form.addEventListener('submit', (event) => {
 });
 
 renderWorker();
+console.log(workerArr)
