@@ -20,37 +20,43 @@ const name = document.querySelector('input[id=name]'),
 	form = document.querySelector('.form__elements'),
 	table = document.querySelector('.table__elements');
 
-let workerArr = JSON.parse(localStorage.getItem('workers')) || [];
+let workerArr = JSON.parse(localStorage.getItem('workers')) || [],
 	
-let genderCheck = '',
-	employmentCheck = '',
-	positionCheck = '',
-	postjobCheck = '';
+	genderCheck = JSON.parse(localStorage.getItem('gender')) || '',
+	employmentCheck = JSON.parse(localStorage.getItem('employment')) || '',
 
-const getEmployment = function() {
+	positionCheck = JSON.parse(localStorage.getItem('position')) || '',
+	postjobCheck = JSON.parse(localStorage.getItem('postjob')) || '',
+	
+	salaryWorker = JSON.parse(localStorage.getItem('salary')) || 0;
+
+const getEmployment = () => {
 	for (let i = 0; i < employment.length; i++) {
 		employment[i].addEventListener('change', () => {
 			if (employment[i].type == "radio" && employment[i].checked) {
 	            employmentCheck = employment[i].value;
+
+	            localStorage.setItem('employment', JSON.stringify(employmentCheck));
 	        }
 		});
     }
 }
 getEmployment();
 
-
-const getGender = function() {
+const getGender = () => {
 	for (let i = 0; i < gender.length; i++) {
 		gender[i].addEventListener('change', () => {
 			if (gender[i].type == "radio" && gender[i].checked) {
 	            genderCheck = gender[i].value;
+
+	            localStorage.setItem('gender', JSON.stringify(genderCheck));
 	        }
 		});
     }
 }
 getGender();
 
-const getPosition = function() {
+const getPosition = () => {
 	position.addEventListener('change', () => {
 		let positionIndex = position.selectedIndex,
 			positionOption = position.options;
@@ -58,21 +64,33 @@ const getPosition = function() {
 		switch(true) {
 			case position.value == 'fe':
 			positionCheck = `${positionOption[positionIndex].textContent}`;
+			salaryWorker += 0;
+
+			localStorage.setItem('salary', JSON.stringify(salaryWorker));
+			localStorage.setItem('position', JSON.stringify(positionCheck));
 			break;
 
 			case position.value == 'be':
 			positionCheck = `${positionOption[positionIndex].textContent}`;
+			salaryWorker += 10000;
+
+			localStorage.setItem('salary', JSON.stringify(salaryWorker));
+			localStorage.setItem('position', JSON.stringify(positionCheck));
 			break;
 
 			case position.value == 'fs':
 			positionCheck = `${positionOption[positionIndex].textContent}`;
+			salaryWorker += 30000;
+
+			localStorage.setItem('salary', JSON.stringify(salaryWorker));
+			localStorage.setItem('position', JSON.stringify(positionCheck));
 			break;
 		}
 	});
 }
 getPosition();
 
-const getPostjob = function() {
+const getPostjob = () => {
 	postJob.addEventListener('change', () => {
 		let postJobIndex = postJob.selectedIndex,
 			postJobOption = postJob.options;
@@ -81,20 +99,28 @@ const getPostjob = function() {
 			case postJob.value == 'tra':
 			postjobCheck = `${postJobOption[postJobIndex].textContent}`;
 
+			localStorage.setItem('postjob', JSON.stringify(postjobCheck));
+
 			break;
 
 			case postJob.value == 'jun':
 			postjobCheck = `${postJobOption[postJobIndex].textContent}`;
+
+			localStorage.setItem('postjob', JSON.stringify(postjobCheck));
 
 			break;
 
 			case postJob.value == 'mid':
 			postjobCheck = `${postJobOption[postJobIndex].textContent}`;
 
+			localStorage.setItem('postjob', JSON.stringify(postjobCheck));
+
 			break;
 
 			case postJob.value == 'sen':
 			postjobCheck = `${postJobOption[postJobIndex].textContent}`;
+
+			localStorage.setItem('postjob', JSON.stringify(postjobCheck));
 
 			break;
 		}
@@ -102,16 +128,18 @@ const getPostjob = function() {
 }
 getPostjob();
 
-const getSalary = function(worker) {
-	return worker.salary = worker.salary - (worker.salary * (+employmentCheck / 100))
+const getSalary = (worker) => {
+	worker.salary = worker.salary + salaryWorker - (worker.salary * (+employmentCheck / 100));
+
+	return worker.salary;
 }
 
-const createWorker = function() {
+const createWorker = () => {
 	switch(true) {
 		case postJob.value == 'tra':
 			const trainee = new Trainee(name.value, surname.value, age.value, genderCheck, postjobCheck, positionCheck);
 
-			employmentCheck == '30' ? getSalary(trainee) : trainee.salary = trainee.salary;
+			employmentCheck == '30' ? getSalary(trainee) : trainee.salary = trainee.salary + salaryWorker;
 			
 			trainee.addWorker(trainee);
 		break;
@@ -119,7 +147,7 @@ const createWorker = function() {
 		case postJob.value == 'jun':
 			const junior = new Junior(name.value, surname.value, age.value,  genderCheck, postjobCheck, positionCheck);
 
-			employmentCheck == '30' ? getSalary(junior) : junior.salary = junior.salary;
+			employmentCheck == '30' ? getSalary(junior) : junior.salary = junior.salary + salaryWorker;
 
 			junior.addWorker(junior);
 		break;
@@ -127,7 +155,7 @@ const createWorker = function() {
 		case postJob.value == 'mid':
 			const middle = new Middle(name.value, surname.value, age.value,  genderCheck, postjobCheck, positionCheck);
 
-			employmentCheck == '30' ? getSalary(middle) : middle.salary = middle.salary;
+			employmentCheck == '30' ? getSalary(middle) : middle.salary = middle.salary + salaryWorker;
 
 			middle.addWorker(middle);
 		break;
@@ -135,44 +163,40 @@ const createWorker = function() {
 		case postJob.value == 'sen':
 			const senior = new Senior(name.value, surname.value, age.value,  genderCheck, postjobCheck, positionCheck);
 
-			employmentCheck == '30' ? getSalary(senior) : senior.salary = senior.salary;
+			employmentCheck == '30' ? getSalary(senior) : senior.salary = senior.salary + salaryWorker;
 
 			senior.addWorker(senior);
 		break;
 	}
 }
 
-const isString = function(str) {
+const isString = (str) => {
 	return typeof str == 'string' &&
 		   isNaN(str) &&
 		   !(str.startsWith(' ') || str.endsWith(' '));
 }
 
-const isNumber = function(num) {
+const isNumber = (num) => {
 	return !isNaN(parseFloat(num)) &&
 		   isFinite(num) &&
 		   !(num.startsWith(' ') || num.endsWith(' '));
 }
 
-const checkInputs = function() {
+const checkInputs = () => {
 	if(!isString(name.value) || !isString(surname.value) || !isNumber(age.value) ||
 		(!male.checked && !female.checked) || (!fullTime.checked && !partTime.checked)) {
 
 		console.log('введите данные');
 	} else {
-
 		createWorker();
 		renderWorker();
-
-		localStorage.setItem('workers', JSON.stringify(workerArr));
-
 		reset();
 
-		console.log(workerArr)
+		localStorage.setItem('workers', JSON.stringify(workerArr));
 	}
 }
 
-const renderWorker = function() {
+const renderWorker = () => {
 	table.innerHTML = '';
 
 	workerArr.forEach((item) => {
@@ -193,7 +217,7 @@ const renderWorker = function() {
 
 			<td class="table__item">${item.postJob}</td>
 
-			<td class="table__item">${item.salary}</td>
+			<td class="table__item">${item._salary}</td>
 
 			<td class="table__item">
 				<button type="button" class="table__button">Удалить</button>
@@ -204,7 +228,9 @@ const renderWorker = function() {
 
 		const removeBtn = tr.querySelector('.table__button');
 
-		removeBtn.addEventListener('click', () => {
+		removeBtn.addEventListener('click', (event) => {
+			let parentBtn = event.target.parentElement;
+			console.log(item)
 			item.removeWorker(item);
 
 			renderWorker();
@@ -214,10 +240,16 @@ const renderWorker = function() {
 	});
 }
 
-const reset = function() {
+const reset = () => {
 	name.value = '';
 	surname.value = '';
 	age.value = '';
+
+	genderCheck = '';
+	employmentCheck = '';
+	positionCheck = '';
+	postjobCheck = '';
+	salaryWorker = 0;
 
 	male.checked = false;
 	female.checked = false;
@@ -235,4 +267,3 @@ form.addEventListener('submit', (event) => {
 });
 
 renderWorker();
-console.log(workerArr)
