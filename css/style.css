@@ -245,10 +245,21 @@ input[type="number"] {
   align-items: center;
   padding: 1rem 0;
   border-radius: .5rem .5rem 0 0;
+  border-bottom: .2rem solid #FFFFFF;
   background-color: rgba(120, 120, 120, .3);
 }
 
-.table__title {
+.table__foot {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 5rem;
+  border-radius: 0 0 .5rem .5rem;
+  border-top: .2rem solid #FFFFFF;
+  background-color: rgba(120, 120, 120, .3);
+}
+
+.table__head-title {
   width: 10.5rem;
   max-width: 10.5rem;
   font-style: italic;
@@ -256,7 +267,24 @@ input[type="number"] {
   font-size: 1.5rem;
 }
 
-.table__title > img {
+.table__foot-title {
+  font-style: italic;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.count {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-left: 1.5rem;
+}
+
+.table__foot-workers {
+  margin-right: 5rem;
+}
+
+.table__head-title > img {
   width: 2rem;
   height: auto;
 }

@@ -18,7 +18,10 @@ const name = document.querySelector('input[id=name]'),
 	formError = document.querySelectorAll('.form__label-error'),
 
 	form = document.querySelector('.form__elements'),
-	table = document.querySelector('.table__elements');
+	table = document.querySelector('.table__elements'),
+
+	workersCount = document.getElementById('workers-count'),
+	salaryCount = document.getElementById('salary-count');
 
 let workerArr = JSON.parse(localStorage.getItem('workers')) || [],
 	
@@ -27,8 +30,16 @@ let workerArr = JSON.parse(localStorage.getItem('workers')) || [],
 
 	positionCheck = JSON.parse(localStorage.getItem('position')) || '',
 	postjobCheck = JSON.parse(localStorage.getItem('postjob')) || '',
-	
-	salaryWorker = JSON.parse(localStorage.getItem('salary')) || 0;
+
+	salaryWorker = JSON.parse(localStorage.getItem('salary')) || 0,
+
+	totalWorkers = JSON.parse(localStorage.getItem('total-workers')) || 0,
+	totalSalary = JSON.parse(localStorage.getItem('total-salary')) || 0;
+
+const cutStr = (str, char) => {
+
+    return str.replace(new RegExp(`${char}.*`), '');
+}
 
 const getEmployment = () => {
 	for (let i = 0; i < employment.length; i++) {
@@ -64,6 +75,7 @@ const getPosition = () => {
 		switch(true) {
 			case position.value == 'fe':
 			positionCheck = `${positionOption[positionIndex].textContent}`;
+			positionCheck = cutStr(positionCheck, ' ');
 			salaryWorker += 0;
 
 			localStorage.setItem('salary', JSON.stringify(salaryWorker));
@@ -72,6 +84,7 @@ const getPosition = () => {
 
 			case position.value == 'be':
 			positionCheck = `${positionOption[positionIndex].textContent}`;
+			positionCheck = cutStr(positionCheck, ' ');
 			salaryWorker += 10000;
 
 			localStorage.setItem('salary', JSON.stringify(salaryWorker));
@@ -80,6 +93,7 @@ const getPosition = () => {
 
 			case position.value == 'fs':
 			positionCheck = `${positionOption[positionIndex].textContent}`;
+			positionCheck = cutStr(positionCheck, ' ');
 			salaryWorker += 30000;
 
 			localStorage.setItem('salary', JSON.stringify(salaryWorker));
@@ -98,6 +112,7 @@ const getPostjob = () => {
 		switch(true) {
 			case postJob.value == 'tra':
 			postjobCheck = `${postJobOption[postJobIndex].textContent}`;
+			postjobCheck = cutStr(postjobCheck, ' ');
 
 			localStorage.setItem('postjob', JSON.stringify(postjobCheck));
 
@@ -105,6 +120,7 @@ const getPostjob = () => {
 
 			case postJob.value == 'jun':
 			postjobCheck = `${postJobOption[postJobIndex].textContent}`;
+			postjobCheck = cutStr(postjobCheck, ' ');
 
 			localStorage.setItem('postjob', JSON.stringify(postjobCheck));
 
@@ -112,6 +128,7 @@ const getPostjob = () => {
 
 			case postJob.value == 'mid':
 			postjobCheck = `${postJobOption[postJobIndex].textContent}`;
+			postjobCheck = cutStr(postjobCheck, ' ');
 
 			localStorage.setItem('postjob', JSON.stringify(postjobCheck));
 
@@ -119,6 +136,7 @@ const getPostjob = () => {
 
 			case postJob.value == 'sen':
 			postjobCheck = `${postJobOption[postJobIndex].textContent}`;
+			postjobCheck = cutStr(postjobCheck, ' ');
 
 			localStorage.setItem('postjob', JSON.stringify(postjobCheck));
 
@@ -186,14 +204,25 @@ const checkInputs = () => {
 	if(!isString(name.value) || !isString(surname.value) || !isNumber(age.value) ||
 		(!male.checked && !female.checked) || (!fullTime.checked && !partTime.checked)) {
 
-		console.log('введите данные');
+		alert('Введите данные нового сотрудника!');
 	} else {
 		createWorker();
 		renderWorker();
+
+		getTotal();
+		renderTotal();
+
 		reset();
 
+		localStorage.setItem('total-workers', JSON.stringify(totalWorkers));
+		localStorage.setItem('total-salary', JSON.stringify(totalSalary));
 		localStorage.setItem('workers', JSON.stringify(workerArr));
 	}
+}
+
+const renderTotal = () => {
+	salaryCount.innerHTML = `${totalSalary} руб.`;
+	workersCount.innerHTML = `${totalWorkers} чел.`;
 }
 
 const renderWorker = () => {
@@ -217,7 +246,7 @@ const renderWorker = () => {
 
 			<td class="table__item">${item.postJob}</td>
 
-			<td class="table__item">${item._salary}</td>
+			<td class="table__item">${item._salary} руб.</td>
 
 			<td class="table__item">
 				<button type="button" class="table__button">Удалить</button>
@@ -233,8 +262,12 @@ const renderWorker = () => {
 			console.log(item)
 			item.removeWorker(item);
 
+			getTotal();
+			renderTotal();
 			renderWorker();
 
+			localStorage.setItem('total-workers', JSON.stringify(totalWorkers));
+			localStorage.setItem('total-salary', JSON.stringify(totalSalary));
 			localStorage.setItem('workers', JSON.stringify(workerArr));
 		});
 	});
@@ -251,13 +284,13 @@ const reset = () => {
 	postjobCheck = '';
 	salaryWorker = 0;
 
+	postjob.value = '';
+	position.value = '';
+
 	male.checked = false;
 	female.checked = false;
 	fullTime.checked = false;
 	partTime.checked = false;
-
-	postJob.value = '';
-	position.value = '';
 }
 
 form.addEventListener('submit', (event) => {
@@ -266,4 +299,15 @@ form.addEventListener('submit', (event) => {
 	checkInputs();
 });
 
+const getTotal = () => {
+	totalSalary = +workerArr.reduce((sum, item) => {
+
+		return sum + +item._salary;
+
+	}, 0);
+
+	totalWorkers = workerArr.length;
+}
+
 renderWorker();
+renderTotal();
