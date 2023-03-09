@@ -8,11 +8,13 @@ class Worker extends Person {
 		this.position = position;
 	}
 
+	static workerArr = JSON.parse(localStorage.getItem('workers')) || [];
+
 	addWorker(worker) {
-		workerArr.push(worker);
+		Worker.workerArr.push(worker);
 	}
 
 	removeWorker(index) {
-		workerArr.splice(workerArr.indexOf(index), 1);
+		Worker.workerArr.splice(Worker.workerArr.indexOf(index), 1);
 	}
 }

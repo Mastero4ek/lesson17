@@ -22,10 +22,8 @@ const name = document.querySelector('input[id=name]'),
 
 	workersCount = document.getElementById('workers-count'),
 	salaryCount = document.getElementById('salary-count');
-
-let workerArr = JSON.parse(localStorage.getItem('workers')) || [],
 	
-	genderCheck = JSON.parse(localStorage.getItem('gender')) || '',
+let	genderCheck = JSON.parse(localStorage.getItem('gender')) || '',
 	employmentCheck = JSON.parse(localStorage.getItem('employment')) || '',
 
 	positionCheck = JSON.parse(localStorage.getItem('position')) || '',
@@ -216,7 +214,7 @@ const checkInputs = () => {
 
 		localStorage.setItem('total-workers', JSON.stringify(totalWorkers));
 		localStorage.setItem('total-salary', JSON.stringify(totalSalary));
-		localStorage.setItem('workers', JSON.stringify(workerArr));
+		localStorage.setItem('workers', JSON.stringify(Worker.workerArr));
 	}
 }
 
@@ -228,7 +226,7 @@ const renderTotal = () => {
 const renderWorker = () => {
 	table.innerHTML = '';
 
-	workerArr.forEach((item) => {
+	Worker.workerArr.forEach((item, i) => {
 		const tr = document.createElement('tr');
 
 		tr.classList.add('table__items');
@@ -259,7 +257,11 @@ const renderWorker = () => {
 
 		removeBtn.addEventListener('click', (event) => {
 			let parentBtn = event.target.parentElement;
+
 			console.log(item)
+			console.log(i)
+
+
 			item.removeWorker(item);
 
 			getTotal();
@@ -268,7 +270,7 @@ const renderWorker = () => {
 
 			localStorage.setItem('total-workers', JSON.stringify(totalWorkers));
 			localStorage.setItem('total-salary', JSON.stringify(totalSalary));
-			localStorage.setItem('workers', JSON.stringify(workerArr));
+			localStorage.setItem('workers', JSON.stringify(Worker.workerArr));
 		});
 	});
 }
@@ -300,13 +302,13 @@ form.addEventListener('submit', (event) => {
 });
 
 const getTotal = () => {
-	totalSalary = +workerArr.reduce((sum, item) => {
+	totalSalary = +Worker.workerArr.reduce((sum, item) => {
 
 		return sum + +item._salary;
 
 	}, 0);
 
-	totalWorkers = workerArr.length;
+	totalWorkers = Worker.workerArr.length;
 }
 
 renderWorker();
