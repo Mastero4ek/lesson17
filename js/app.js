@@ -258,7 +258,7 @@ const renderWorker = () => {
 		removeBtn.addEventListener('click', (event) => {
 			let parentBtn = event.target.parentElement;
 
-			Worker.workerArr.splice(Worker.workerArr.indexOf(i), 1);
+			Worker.removeWorker(i);
 
 			getTotal();
 			renderTotal();

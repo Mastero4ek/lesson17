@@ -10,11 +10,11 @@ class Worker extends Person {
 
 	static workerArr = JSON.parse(localStorage.getItem('workers')) || [];
 
-	addWorker(worker) {
-		Worker.workerArr.push(worker);
+	static removeWorker(i) {
+		Worker.workerArr.splice(Worker.workerArr.indexOf(i), 1);
 	}
 
-	removeWorker(index) {
-		Worker.workerArr.splice(Worker.workerArr.indexOf(index), 1);
+	addWorker(worker) {
+		Worker.workerArr.push(worker);
 	}
 }
