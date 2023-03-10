@@ -299,10 +299,9 @@ input[type="number"] {
   margin-right: 5rem;
 }
 
-.table__head-title > .icon {
+.table__head-title > img {
   width: 2rem;
-  height: 3rem;
-  fill: #4f4f4f;
+  height: auto;
 }
 
 .table__elements,
