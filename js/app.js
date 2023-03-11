@@ -24,6 +24,7 @@ const name = document.querySelector('input[id=name]'),
 	salaryCount = document.getElementById('salary-count'),
 
 	overlay = document.getElementById('overlay'),
+	popup = document.getElementById('popup'),
 	close = document.getElementById('close');
 	
 let	genderCheck = JSON.parse(localStorage.getItem('gender')) || '',
@@ -36,15 +37,6 @@ let	genderCheck = JSON.parse(localStorage.getItem('gender')) || '',
 
 	totalWorkers = JSON.parse(localStorage.getItem('total-workers')) || 0,
 	totalSalary = JSON.parse(localStorage.getItem('total-salary')) || 0;
-
-close.addEventListener('click', () => {
-	overlay.classList.remove('show');
-});
-
-const cutStr = (str, char) => {
-
-    return str.replace(new RegExp(`${char}.*`), '');
-}
 
 const getEmployment = () => {
 	for (let i = 0; i < employment.length; i++) {
@@ -151,6 +143,11 @@ const getPostjob = () => {
 }
 getPostjob();
 
+const cutStr = (str, char) => {
+
+    return str.replace(new RegExp(`${char}.*`), '');
+}
+
 const getSalary = (worker) => {
 	worker.salary = worker.salary + salaryWorker - (worker.salary * (+employmentCheck / 100));
 
@@ -210,6 +207,7 @@ const checkInputs = () => {
 		(!male.checked && !female.checked) || (!fullTime.checked && !partTime.checked)) {
 
 		overlay.classList.add('show');
+		popup.style.transform = 'scale(1)';
 	} else {
 		createWorker();
 		renderWorker();
@@ -278,6 +276,16 @@ const renderWorker = () => {
 	});
 }
 
+const getTotal = () => {
+	totalSalary = +Worker.workerArr.reduce((sum, item) => {
+
+		return sum + +item._salary;
+
+	}, 0);
+
+	totalWorkers = Worker.workerArr.length;
+}
+
 const reset = () => {
 	name.value = '';
 	surname.value = '';
@@ -298,21 +306,16 @@ const reset = () => {
 	partTime.checked = false;
 }
 
+close.addEventListener('click', () => {
+	overlay.classList.remove('show');
+	popup.style.transform = '';
+});
+
 form.addEventListener('submit', (event) => {
 	event.preventDefault();
 
 	checkInputs();
 });
-
-const getTotal = () => {
-	totalSalary = +Worker.workerArr.reduce((sum, item) => {
-
-		return sum + +item._salary;
-
-	}, 0);
-
-	totalWorkers = Worker.workerArr.length;
-}
 
 renderWorker();
 renderTotal();
