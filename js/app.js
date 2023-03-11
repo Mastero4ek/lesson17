@@ -21,7 +21,10 @@ const name = document.querySelector('input[id=name]'),
 	table = document.querySelector('.table__elements'),
 
 	workersCount = document.getElementById('workers-count'),
-	salaryCount = document.getElementById('salary-count');
+	salaryCount = document.getElementById('salary-count'),
+
+	overlay = document.getElementById('overlay'),
+	close = document.getElementById('close');
 	
 let	genderCheck = JSON.parse(localStorage.getItem('gender')) || '',
 	employmentCheck = JSON.parse(localStorage.getItem('employment')) || '',
@@ -33,6 +36,10 @@ let	genderCheck = JSON.parse(localStorage.getItem('gender')) || '',
 
 	totalWorkers = JSON.parse(localStorage.getItem('total-workers')) || 0,
 	totalSalary = JSON.parse(localStorage.getItem('total-salary')) || 0;
+
+close.addEventListener('click', () => {
+	overlay.classList.remove('show');
+});
 
 const cutStr = (str, char) => {
 
@@ -202,7 +209,7 @@ const checkInputs = () => {
 	if(!isString(name.value) || !isString(surname.value) || !isNumber(age.value) ||
 		(!male.checked && !female.checked) || (!fullTime.checked && !partTime.checked)) {
 
-		alert('Введите данные нового сотрудника!');
+		overlay.classList.add('show');
 	} else {
 		createWorker();
 		renderWorker();
